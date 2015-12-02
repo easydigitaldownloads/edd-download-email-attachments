@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Easy Digital Downloads - Download Email Attachments\n"
+"POT-Creation-Date: 2013-11-13 11:14+1200\n"
+"PO-Revision-Date: 2013-11-13 11:14+1200\n"
+"Last-Translator: \n"
+"Language-Team: Sumobi <andrew@sumobi.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../edd-download-email-attachments.php:59
+msgid "Download Email Attachments"
+msgstr ""
+
+#: ../edd-download-email-attachments.php:222
+#, php-format
+msgid "%s Attachments"
+msgstr ""
+
+#: ../edd-download-email-attachments.php:226
+msgid "Send file downloads as email attachments"
+msgstr ""
+
+#: ../edd-download-email-attachments.php:258
+msgid "Enable per download file attachments"
+msgstr ""
+
+#: ../edd-download-email-attachments.php:259
+msgid ""
+"Enable this option to only specify the downloads which files will be sent as "
+"attachments"
+msgstr ""
+
+#: ../edd-download-email-attachments.php:278
+msgid "Settings"
+msgstr ""
+
+#: ../includes/EDD_License_Handler.php:112
+#, php-format
+msgid "%1$s License Key"
+msgstr ""
+
+#: ../includes/EDD_License_Handler.php:218
+msgid "Deactivate License"
+msgstr ""
