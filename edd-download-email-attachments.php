@@ -55,8 +55,8 @@ if ( ! class_exists( 'EDD_Download_Email_Attachments' ) ) {
 		 */
 		private function setup_globals() {
 
-			$this->version 		= '1.0';
-			$this->title 		= __( 'Download Email Attachments', 'edd-dea' );
+			$this->version = '1.0';
+			$this->title   = __( 'Download Email Attachments', 'edd-dea' );
 
 			// paths
 			$this->file         = __FILE__;
@@ -89,7 +89,7 @@ if ( ! class_exists( 'EDD_Download_Email_Attachments' ) ) {
 				add_action( 'edd_meta_box_fields', array( $this, 'add_metabox' ), 18 );
 				add_action( 'edd_metabox_fields_save', array( $this, 'save_metabox' ) );
 			}
-			
+
 			// settings
 			add_filter( 'edd_settings_extensions', array( $this, 'settings' ) );
 
@@ -136,7 +136,7 @@ if ( ! class_exists( 'EDD_Download_Email_Attachments' ) ) {
 
 		/**
 		 * Retrieves the attachment ID from the file URL
-		 * Credit: Pippin Williamson 
+		 * Credit: Pippin Williamson
 		 * @link http://pippinsplugins.com/retrieve-attachment-id-from-image-url/
 		 * @since 1.0
 		*/
@@ -144,9 +144,9 @@ if ( ! class_exists( 'EDD_Download_Email_Attachments' ) ) {
 			global $wpdb;
 
 			$prefix = $wpdb->prefix;
-			$attachment = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM " . $prefix . "posts" . " WHERE guid='%s';", $file_url ) ); 
-		    
-		    return $attachment[0]; 
+			$attachment = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM " . $prefix . "posts" . " WHERE guid='%s';", $file_url ) );
+
+			return $attachment[0];
 		}
 
 		/**
@@ -158,7 +158,7 @@ if ( ! class_exists( 'EDD_Download_Email_Attachments' ) ) {
 			global $edd_options;
 
 			// get array of download IDs
-			$downloads = maybe_unserialize( $payment_data['downloads'] );
+			$downloads = edd_get_downloads_of_purchase( $payment_id );
 
 			if ( $downloads ) {
 
@@ -174,17 +174,18 @@ if ( ! class_exists( 'EDD_Download_Email_Attachments' ) ) {
 
 					// is bundled product
 					if ( edd_is_bundled_product( $download['id'] ) ) {
-						 $bundled_ids = get_post_meta( $download['id'], '_edd_bundled_products', true );
-							
-						 if ( $bundled_ids ) {
-						 	foreach ( $bundled_ids as $id ) {
-						 		$files[] = get_post_meta( $id, 'edd_download_files', true );
-						 	}
-						 }
+						$bundled_ids = get_post_meta( $download['id'], '_edd_bundled_products', true );
+
+						if ( $bundled_ids ) {
+							foreach ( $bundled_ids as $id ) {
+								$files[] = get_post_meta( $id, 'edd_download_files', true );
+							}
+						}
 					}
 					// normal download
 					else {
-						$files[] = get_post_meta( $download['id'], 'edd_download_files', true );
+						$price_id = ! empty( $download['options']['price_id'] ) ? $download['options']['price_id'] : null;
+						$files[] = edd_get_download_files( $download['id'], $price_id );
 					}
 
 				}
@@ -205,12 +206,12 @@ if ( ! class_exists( 'EDD_Download_Email_Attachments' ) ) {
 						}
 					}
 				}
-			
+
 			}
 
 			return $attachments;
 		}
-		
+
 		/**
 		 * Add Metabox if per download email attachments are enabled
 		 *
@@ -249,16 +250,16 @@ if ( ! class_exists( 'EDD_Download_Email_Attachments' ) ) {
 
 		  $new_settings = array(
 				array(
-					'id' => 'edd_dea_header',
+					'id'   => 'edd_dea_header',
 					'name' => '<strong>' . $this->title . '</strong>',
 					'type' => 'header'
 				),
 				array(
-					'id' => 'edd_dea_per_download_attachments',
+					'id'   => 'edd_dea_per_download_attachments',
 					'name' => __( 'Enable per download file attachments', 'edd-dea' ),
 					'desc' => __( 'Enable this option to only specify the downloads which files will be sent as attachments', 'edd-dea' ),
 					'type' => 'checkbox',
-					'std' => ''
+					'std'  => ''
 				),
 			);
 
@@ -271,7 +272,7 @@ if ( ! class_exists( 'EDD_Download_Email_Attachments' ) ) {
 		 * @since 1.0
 		*/
 		public function action_links( $links, $pluginLink ) {
-			if( $pluginLink != 'edd-download-email-attachments/edd-download-email-attachments.php' ) 
+			if( $pluginLink != 'edd-download-email-attachments/edd-download-email-attachments.php' )
 				return $links;
 
 			$plugin_links = array(
