@@ -158,7 +158,7 @@ if ( ! class_exists( 'EDD_Download_Email_Attachments' ) ) {
 			global $edd_options;
 
 			// get array of download IDs
-			$downloads = edd_get_downloads_of_purchase( $payment_id );
+			$downloads = edd_get_payment_meta_downloads( $payment_id );
 
 			if ( $downloads ) {
 
