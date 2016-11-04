@@ -184,7 +184,7 @@ if ( ! class_exists( 'EDD_Download_Email_Attachments' ) ) {
 					}
 					// normal download
 					else {
-						$price_id = ! empty( $download['options']['price_id'] ) ? $download['options']['price_id'] : null;
+						$price_id = isset( $download['options']['price_id'] ) && is_numeric( $download['options']['price_id'] ) ? absint( $download['options']['price_id'] ) : null; 
 						$files[] = edd_get_download_files( $download['id'], $price_id );
 					}
 
