@@ -1,11 +1,13 @@
 <?php
 /*
 Plugin Name: Easy Digital Downloads - Download Email Attachments
-Plugin URI: http://easydigitaldownloads.com/extensions/download-email-attachments
+Plugin URI: https://easydigitaldownloads.com/extensions/download-email-attachments/
 Description: Send download files as email attachments when purchased.
-Version: 1.1
-Author: Andrew Munro, Sumobi
-Author URI: http://sumobi.com/
+Version: 1.1.1
+Author: Easy Digital Downloads
+Author URI: https://easydigitaldownloads.com/
+License: GPL-2.0+
+License URI: http://www.opensource.org/licenses/gpl-license.php
 */
 
 // Exit if accessed directly
@@ -55,7 +57,7 @@ if ( ! class_exists( 'EDD_Download_Email_Attachments' ) ) {
 		 */
 		private function setup_globals() {
 
-			$this->version = '1.1';
+			$this->version = '1.1.1';
 			$this->title   = __( 'Download Email Attachments', 'edd-dea' );
 
 			// paths
